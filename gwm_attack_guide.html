@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Great Weapon Master Attack Guide</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2c1810, #8b4513);
+            color: #f4e4c1;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.8);
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #d4af37;
+        }
+        .title {
+            text-align: center;
+            color: #d4af37;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .attack-section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .attack-box {
+            flex: 1;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid #0f3460;
+            position: relative;
+            overflow: hidden;
+        }
+        .attack-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+        }
+        .normal-attack::before {
+            background: linear-gradient(90deg, #4ecdc4, #45b7d1);
+        }
+        .power-attack::before {
+            background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+        }
+        .attack-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .normal-title { color: #4ecdc4; }
+        .power-title { color: #ff6b6b; }
+        
+        .step {
+            background: rgba(255,255,255,0.1);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #d4af37;
+        }
+        .step-number {
+            background: #d4af37;
+            color: #000;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .dice-roll {
+            background: #2d3748;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 8px 0;
+            border: 1px solid #4a5568;
+        }
+        .decision-matrix {
+            background: linear-gradient(135deg, #2d1b69, #11998e);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px solid #d4af37;
+        }
+        .matrix-title {
+            font-size: 1.8em;
+            text-align: center;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        .decision-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .decision-box {
+            background: rgba(0,0,0,0.6);
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+        .use-gwm {
+            border-color: #4ecdc4;
+        }
+        .dont-use-gwm {
+            border-color: #ff6b6b;
+        }
+        .decision-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .use-header { color: #4ecdc4; }
+        .dont-header { color: #ff6b6b; }
+        
+        .scenario {
+            background: rgba(255,255,255,0.1);
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #d4af37;
+        }
+        .bonus-section {
+            background: linear-gradient(45deg, #8b4513, #a0522d);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #d4af37;
+        }
+        .bonus-title {
+            color: #ffd700;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #ffd700;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">⚔️ GREAT WEAPON MASTER GUIDE ⚔️</h1>
+        
+        <div class="attack-section">
+            <div class="attack-box normal-attack">
+                <h2 class="attack-title normal-title">🛡️ NORMAL ATTACK</h2>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Declare Normal Attack</strong><br>
+                    "I'm attacking normally with my maul"
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Roll to Hit</strong>
+                    <div class="dice-roll">d20 + 7 (STR +3, Prof +3, Magic +1)</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>If Hit: Roll Damage</strong>
+                    <div class="dice-roll">2d6 + 3 (STR modifier)</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Great Weapon Fighting</strong><br>
+                    Reroll any 1s or 2s on damage dice
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>If Crit or Kill</strong><br>
+                    Get bonus action attack!
+                </div>
+            </div>
+
+            <div class="attack-box power-attack">
+                <h2 class="attack-title power-title">💥 POWER ATTACK (-5/+10)</h2>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Declare Power Attack</strong><br>
+                    "I'm using Great Weapon Master power attack"
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Roll to Hit (HARDER)</strong>
+                    <div class="dice-roll">d20 + 2 (7 - 5 penalty)</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>If Hit: MASSIVE Damage</strong>
+                    <div class="dice-roll">2d6 + 13 (3 + 10 bonus)</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Great Weapon Fighting</strong><br>
+                    Reroll 1s/2s on <span class="highlight">ALL damage dice</span>
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>If Crit or Kill</strong><br>
+                    Bonus action attack (can also be power attack!)
+                </div>
+            </div>
+        </div>
+
+        <div class="decision-matrix">
+            <h2 class="matrix-title">🎯 WHEN TO USE POWER ATTACK</h2>
+            <div class="decision-grid">
+                <div class="decision-box use-gwm">
+                    <h3 class="decision-header use-header">✅ USE POWER ATTACK</h3>
+                    <div class="scenario">
+                        <strong>🎲 You have ADVANTAGE</strong><br>
+                        Flanking, spells, prone enemy, etc.
+                    </div>
+                    <div class="scenario">
+                        <strong>🛡️ Enemy has LOW AC (13 or less)</strong><br>
+                        Weak creatures, unarmored enemies
+                    </div>
+                    <div class="scenario">
+                        <strong>💀 Need MAXIMUM damage</strong><br>
+                        Boss fights, limited time, finishing blows
+                    </div>
+                    <div class="scenario">
+                        <strong>🎯 Multiple attacks available</strong><br>
+                        Extra Attack + Action Surge = try both
+                    </div>
+                    <div class="scenario">
+                        <strong>⚡ Minion cleanup</strong><br>
+                        Weak enemies you're likely to kill
+                    </div>
+                </div>
+
+                <div class="decision-box dont-use-gwm">
+                    <h3 class="decision-header dont-header">❌ DON'T USE POWER ATTACK</h3>
+                    <div class="scenario">
+                        <strong>🛡️ HIGH AC enemies (16+)</strong><br>
+                        Strahd, heavily armored foes
+                    </div>
+                    <div class="scenario">
+                        <strong>🎲 You have DISADVANTAGE</strong><br>
+                        Already struggling to hit
+                    </div>
+                    <div class="scenario">
+                        <strong>🎯 Need to HIT for effects</strong><br>
+                        Triggering abilities, just need contact
+                    </div>
+                    <div class="scenario">
+                        <strong>⚡ Low health/desperate</strong><br>
+                        Can't afford to miss
+                    </div>
+                    <div class="scenario">
+                        <strong>🔮 Testing AC/defenses</strong><br>
+                        First attack on unknown enemy
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bonus-section">
+            <h3 class="bonus-title">🔥 BONUS ACTION ATTACK</h3>
+            <div class="step">
+                <span class="step-number">!</span>
+                <strong>Triggers when you:</strong> Score a critical hit OR reduce an enemy to 0 HP with a melee weapon attack
+            </div>
+            <div class="step">
+                <span class="step-number">!</span>
+                <strong>You get:</strong> One additional melee weapon attack as a bonus action
+            </div>
+            <div class="step">
+                <span class="step-number">!</span>
+                <strong>This bonus attack can ALSO use the -5/+10 power attack option!</strong>
+            </div>
+        </div>
+
+        <div class="decision-matrix">
+            <h2 class="matrix-title">⚔️ ATTACK PRIORITY GUIDE</h2>
+            <div style="background: rgba(0,0,0,0.6); padding: 20px; border-radius: 8px;">
+                <div class="scenario">
+                    <strong>🎯 Against AC 13 or lower:</strong> Almost always use power attack (-5/+10)
+                </div>
+                <div class="scenario">
+                    <strong>🎯 Against AC 14-15:</strong> Use power attack with advantage, normal otherwise
+                </div>
+                <div class="scenario">
+                    <strong>🎯 Against AC 16+ (like Strahd):</strong> Normal attacks unless you have advantage
+                </div>
+                <div class="scenario">
+                    <strong>🎯 Multiple attacks:</strong> Try power attack first, normal attack second if first misses
+                </div>
+                <div class="scenario">
+                    <strong>🎯 Action Surge turns:</strong> Mix both - some power, some normal for reliability
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
