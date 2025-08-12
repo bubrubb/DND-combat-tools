@@ -166,6 +166,8 @@
 <body>
     <div class="container">
         <h1 class="title">⚔️ GWM COMBAT CHECKLIST ⚔️</h1>
+        
+        <!-- Strategy Guide Cross-Link -->
         <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: rgba(255,215,0,0.1); border-radius: 8px; border: 1px solid #d4af37;">
             📖 <strong>Need help deciding when to power attack?</strong> 
             <a href="gwm_attack_guide.html" style="color: #4ecdc4; text-decoration: underline;">Check the Strategy Guide</a>
@@ -263,6 +265,17 @@
                 </div>
             </div>
             
+            <div class="checklist-item action-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Check for Topple Mastery</div>
+                    <div class="item-desc">
+                        <strong>Topple:</strong> When you hit with this weapon, you can force the target to make a Constitution saving throw. On a failed save, the target has the prone condition.
+                        <div class="roll-box">DC = 8 + Prof Bonus + STR Mod = DC 15</div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="checklist-item">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
@@ -318,9 +331,9 @@
                     16+: Rarely
                 </div>
                 <div class="ref-item">
-                    <strong>GWF Rerolls:</strong><br>
-                    Any 1s or 2s on damage dice<br>
-                    (Keep new result)
+                    <strong>Topple Mastery:</strong><br>
+                    Hit = Con save DC 15<br>
+                    Failed save = Prone condition
                 </div>
             </div>
         </div>
