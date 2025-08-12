@@ -52,6 +52,15 @@
             margin-top: 50px;
             color: #888;
             font-size: 0.9em;
+            .gwm-container:hover .strategy-link {
+        transform: scale(1.1);
+        background: rgba(255, 107, 107, 1);
+    }
+    
+    .main-link:hover {
+        transform: scale(1.05) translateY(-5px) !important;
+        box-shadow: 0 0 25px rgba(212, 175, 55, 0.6) !important;
+        background: linear-gradient(45deg, #3d2b79, #21a98e) !important;
         }
     </style>
 </head>
@@ -63,15 +72,41 @@
         </div>
         
         <div>
-            <div style="display: flex; flex-direction: column; align-items: center; margin: 20px;">
-    <h3 style="color: #d4af37; margin-bottom: 15px;">🗡️ Great Weapon Master Fighter</h3>
-    <a href="gwm_combat_checklist.html" style="margin: 5px;">
-        ⚔️ Combat Checklist<br>
-        <small>Step-by-step combat guide</small>
+            <div style="display: inline-block; margin: 20px; position: relative;">
+    <a href="gwm_combat_checklist.html" style="
+        display: inline-block; 
+        margin: 20px; 
+        padding: 25px 40px; 
+        background: linear-gradient(45deg, #2d1b69, #11998e);
+        color: #ffd700; 
+        text-decoration: none; 
+        border-radius: 15px;
+        border: 3px solid #d4af37;
+        font-weight: bold;
+        font-size: 1.1em;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    ">
+        🗡️ Great Weapon Master<br>
+        <small>Fighter Combat Checklist</small>
     </a>
-    <a href="gwm_attack_guide.html" style="margin: 5px;">
-        📖 Strategy Guide<br>
-        <small>When to use power attacks</small>
+    
+    <!-- Small Strategy Guide Link -->
+    <a href="gwm_attack_guide.html" style="
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        background: rgba(255, 107, 107, 0.9);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 20px;
+        font-size: 0.8em;
+        text-decoration: none;
+        border: 2px solid #ff6b6b;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        📖 Strategy Guide
     </a>
 </div>
             
