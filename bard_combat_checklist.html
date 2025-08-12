@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plinny's Bard Combat Checklist</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2d1b69, #8b4513);
+            color: #f4e4c1;
+            margin: 0;
+            padding: 15px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.9);
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+        .title {
+            text-align: center;
+            color: #d4af37;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .phase {
+            background: linear-gradient(45deg, #2d1b69, #11998e);
+            border-radius: 8px;
+            padding: 18px;
+            margin: 18px 0;
+            border: 2px solid #d4af37;
+            position: relative;
+        }
+        .phase-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .checklist-item {
+            background: rgba(255,255,255,0.1);
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 4px solid #4ecdc4;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        .checklist-item:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateX(5px);
+        }
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #4ecdc4;
+            border-radius: 4px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .checkbox:hover {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+        .checkbox.checked {
+            background: #4ecdc4;
+            border-color: #4ecdc4;
+        }
+        .checkbox.checked::after {
+            content: '✓';
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .item-content {
+            flex: 1;
+        }
+        .item-title {
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 5px;
+        }
+        .item-desc {
+            font-size: 0.9em;
+            color: #ccc;
+            line-height: 1.4;
+        }
+        .decision-highlight {
+            background: rgba(255, 107, 107, 0.2);
+            border-left-color: #ff6b6b;
+        }
+        .action-highlight {
+            background: rgba(76, 175, 80, 0.2);
+            border-left-color: #4caf50;
+        }
+        .spell-highlight {
+            background: rgba(147, 112, 219, 0.2);
+            border-left-color: #9370db;
+        }
+        .roll-box {
+            background: #2d3748;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 5px 0;
+            border: 1px solid #4a5568;
+            display: inline-block;
+        }
+        .quick-ref {
+            background: linear-gradient(45deg, #8b4513, #a0522d);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #d4af37;
+        }
+        .quick-ref-title {
+            color: #ffd700;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .quick-ref-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .ref-item {
+            background: rgba(0,0,0,0.5);
+            padding: 8px;
+            border-radius: 4px;
+            border-left: 3px solid #d4af37;
+        }
+        .reset-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 15px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .reset-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🎭 PLINNY'S BARD COMBAT CHECKLIST 🎵</h1>
+        
+        <div class="phase">
+            <h2 class="phase-title">🎯 Phase 1: Pre-Combat Assessment</h2>
+            
+            <div class="checklist-item decision-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Count Enemies & Allies</div>
+                    <div class="item-desc">How many enemies? Are they clustered or spread? Where are my allies?</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item decision-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Check Resources</div>
+                    <div class="item-desc">Bardic Inspiration uses (3 total), spell slots (4/3/2), HP status</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item decision-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Identify Priority Targets</div>
+                    <div class="item-desc">Spellcasters, ranged attackers, or wounded enemies to finish off?</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Position Assessment</div>
+                    <div class="item-desc">Am I in melee range? Do I need to move? Can I stay at range safely?</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2 class="phase-title">⚡ Phase 2: Action Decision</h2>
+            
+            <div class="checklist-item decision-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Choose Primary Action</div>
+                    <div class="item-desc">
+                        <strong>SPELL:</strong> AoE control/damage, single target save-or-suck<br>
+                        <strong>ATTACK:</strong> Consistent damage with Blade Flourish potential<br>
+                        <strong>SUPPORT:</strong> Bardic Inspiration for crucial ally moments
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item spell-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">If Casting: Choose Spell Level</div>
+                    <div class="item-desc">
+                        <strong>3rd:</strong> Hypnotic Pattern (AoE control)<br>
+                        <strong>2nd:</strong> Suggestion, Blindness/Deafness<br>
+                        <strong>1st:</strong> Faerie Fire, Hideous Laughter, Healing Word
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2 class="phase-title">🎲 Phase 3: Execute Action</h2>
+            
+            <div class="checklist-item action-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">If Attacking: Roll & Apply Dueling</div>
+                    <div class="item-desc">
+                        <div class="roll-box">Rapier: d20 + 6 to hit, 1d8 + 5 damage</div>
+                        <div class="roll-box">Hand Crossbow: d20 + 6 to hit, 1d6 + 3 damage</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item action-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">If Hit: Consider Blade Flourish</div>
+                    <div class="item-desc">
+                        <strong>Defensive:</strong> +AC until next turn<br>
+                        <strong>Slashing:</strong> Hit another enemy within 5ft<br>
+                        <strong>Mobile:</strong> Push target + move with them
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item spell-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">If Casting: Apply Spell Effects</div>
+                    <div class="item-desc">
+                        <div class="roll-box">Spell Save DC: 14</div>
+                        <div class="roll-box">Spell Attack: d20 + 6</div>
+                        Remember concentration spells!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2 class="phase-title">🎵 Phase 4: Bonus Actions & Support</h2>
+            
+            <div class="checklist-item">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Bardic Inspiration Available?</div>
+                    <div class="item-desc">Give to ally making important attack, save, or skill check (d6 bonus die)</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item spell-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Healing Word if Needed</div>
+                    <div class="item-desc">Bonus action to revive downed ally: 1d4+3 healing at range</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Movement & Positioning</div>
+                    <div class="item-desc">25ft speed - stay at optimal range, use Halfling Nimbleness to move through larger enemies</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2 class="phase-title">⚔️ Phase 5: Combat Reactions</h2>
+            
+            <div class="checklist-item">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Opportunity Attacks</div>
+                    <div class="item-desc">Rapier +6 for 1d8+5 damage when enemies leave my reach</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Lucky Racial Feature</div>
+                    <div class="item-desc">If I roll a 1 on attack, ability check, or save - reroll and use new result</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Concentration Saves</div>
+                    <div class="item-desc">When taking damage while concentrating: Constitution save DC 10 or half damage</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-ref">
+            <div class="quick-ref-title">📋 Quick Reference</div>
+            <div class="quick-ref-grid">
+                <div class="ref-item">
+                    <strong>Key Stats:</strong><br>
+                    AC: 14 | HP: 38 | Speed: 25ft<br>
+                    Spell Save DC: 14
+                </div>
+                <div class="ref-item">
+                    <strong>Resources:</strong><br>
+                    Bardic Inspiration: 3/long rest<br>
+                    Spell Slots: 4/3/2
+                </div>
+                <div class="ref-item">
+                    <strong>Top Damage Options:</strong><br>
+                    Rapier + Flourish<br>
+                    Hypnotic Pattern (AoE)<br>
+                    Vicious Mockery
+                </div>
+                <div class="ref-item">
+                    <strong>Best Support:</strong><br>
+                    Bardic Inspiration<br>
+                    Healing Word<br>
+                    Faerie Fire (advantage)
+                </div>
+            </div>
+        </div>
+
+        <button class="reset-btn" onclick="resetAll()">🔄 Reset All Checkboxes</button>
+    </div>
+
+    <script>
+        function toggleCheck(checkbox) {
+            checkbox.classList.toggle('checked');
+        }
+
+        function resetAll() {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.classList.remove('checked');
+            });
+        }
+    </script>
+</body>
+</html>
