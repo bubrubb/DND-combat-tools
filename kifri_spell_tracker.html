@@ -3,37 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kifri's Spell Tracker</title>
+    <title>Kifri's Spell Tracker & Roll20 Guide</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #2c1810, #8b4513, #ffd700);
             color: #f4e4c1;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             min-height: 100vh;
         }
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             background: rgba(0,0,0,0.9);
-            border-radius: 15px;
-            padding: 30px;
-            border: 3px solid #ffd700;
+            border-radius: 8px;
+            padding: 15px;
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
         }
         .title {
             text-align: center;
             color: #ffd700;
-            font-size: 2.5em;
-            margin-bottom: 30px;
+            font-size: 2em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px #000;
         }
         .nav-links {
             text-align: center; 
-            margin-bottom: 30px; 
-            padding: 20px; 
+            margin-bottom: 20px; 
+            padding: 15px; 
             background: rgba(76,175,80,0.1); 
-            border-radius: 10px; 
+            border-radius: 8px; 
+            border: 1px solid #4caf50;
+        }
+        .spell-slots {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .slot-level {
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            border-radius: 8px;
+            padding: 15px;
+            border: 2px solid #ffd700;
+            text-align: center;
+            min-width: 120px;
+        }
+        .slot-title {
+            color: #ffd700;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        .slot-tracker {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .slot {
+            width: 25px;
+            height: 25px;
+            border: 2px solid #4ecdc4;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+        }
+        .slot.used {
+            background: #ff6b6b;
+            border-color: #ff6b6b;
+        }
+        .slot.available {
+            background: #4ecdc4;
+            border-color: #4ecdc4;
+        }
+        .slot:hover {
+            transform: scale(1.1);
+        }
+        .reset-slots {
+            background: #4caf50;
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 8px;
+        }
+        .paladin-resources {
+            background: linear-gradient(45deg, #8b4513, #a0522d);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #ffd700;
+            text-align: center;
+        }
+        .resource-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 12px 0;
+        }
+        .resource-item {
+            background: rgba(0,0,0,0.5);
+            padding: 12px;
+            border-radius: 6px;
+            border: 2px solid #ffd700;
+        }
+        .resource-title {
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .resource-tracker {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        .resource-die {
+            width: 28px;
+            height: 28px;
+            border: 2px solid #ffd700;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .resource-die.used {
+            background: #666;
+            color: #999;
+            border-color: #666;
+        }
+        .resource-die.available {
+            background: #ffd700;
+            color: #000;
+        }
+        .lay-on-hands {
+            background: rgba(76, 175, 80, 0.2);
             border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .lay-on-hands-input {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        .lay-on-hands-input input {
+            width: 50px;
+            padding: 4px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #4caf50;
+            color: #f4e4c1;
+            border-radius: 3px;
+            text-align: center;
+        }
+        .lay-on-hands-input button {
+            padding: 4px 8px;
+            background: #4caf50;
+            border: none;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .concentration {
+            background: rgba(255, 165, 0, 0.2);
+            border: 2px solid orange;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .roll20-section {
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            border-radius: 8px;
+            padding: 18px;
+            margin: 18px 0;
+            border: 2px solid #0f3460;
+        }
+        .roll20-title {
+            color: #4ecdc4;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .spell-guide {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .spell-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            padding: 12px;
+            border-left: 3px solid #ffd700;
+        }
+        .spell-name {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1em;
+            margin-bottom: 6px;
+        }
+        .spell-level {
+            color: #ffd700;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+        }
+        .roll20-command {
+            background: #2d3748;
+            padding: 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #4ecdc4;
+            margin: 6px 0;
+            border: 1px solid #4a5568;
+            word-break: break-all;
+            font-size: 0.85em;
+        }
+        .step-guide {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4caf50;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 12px 0;
+        }
+        .step-title {
+            color: #4caf50;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .step-list {
+            margin-left: 15px;
+        }
+        .step-list li {
+            margin-bottom: 4px;
+            color: #ccc;
+        }
+        .quick-commands {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .quick-title {
+            color: #ffd700;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .command-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+        .command-item {
+            background: rgba(0,0,0,0.5);
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .save-tracker {
+            background: rgba(255, 107, 107, 0.1);
+            border: 2px solid #ff6b6b;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 12px 0;
+            text-align: center;
+        }
+        .smite-tracker {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
         }
     </style>
 </head>
@@ -49,11 +313,387 @@
             <a href="kifri_spell_strategy.html" style="color: #ffd700; text-decoration: underline;">Combat Strategy</a>
         </div>
         
-        <div style="text-align: center; padding: 50px;">
-            <h2 style="color: #ffd700;">Kifri's Spell Tracker</h2>
-            <p style="color: #ccc;">This is a test page to verify the file works.</p>
-            <p style="color: #4ecdc4;">If you can see this, the file is working correctly!</p>
+        <!-- Spell Slots Tracker -->
+        <div class="spell-slots">
+            <div class="slot-level">
+                <div class="slot-title">1st Level</div>
+                <div class="slot-tracker">
+                    <div class="slot available" onclick="toggleSlot(this)">1</div>
+                    <div class="slot available" onclick="toggleSlot(this)">2</div>
+                    <div class="slot available" onclick="toggleSlot(this)">3</div>
+                    <div class="slot available" onclick="toggleSlot(this)">4</div>
+                </div>
+                <button class="reset-slots" onclick="resetLevel(this)">Reset</button>
+            </div>
+            
+            <div class="slot-level">
+                <div class="slot-title">2nd Level</div>
+                <div class="slot-tracker">
+                    <div class="slot available" onclick="toggleSlot(this)">1</div>
+                    <div class="slot available" onclick="toggleSlot(this)">2</div>
+                    <div class="slot available" onclick="toggleSlot(this)">3</div>
+                </div>
+                <button class="reset-slots" onclick="resetLevel(this)">Reset</button>
+            </div>
+            
+            <div class="slot-level">
+                <div class="slot-title">3rd Level</div>
+                <div class="slot-tracker">
+                    <div class="slot available" onclick="toggleSlot(this)">1</div>
+                    <div class="slot available" onclick="toggleSlot(this)">2</div>
+                </div>
+                <button class="reset-slots" onclick="resetLevel(this)">Reset</button>
+            </div>
+        </div>
+
+        <!-- Paladin Resources Tracker -->
+        <div class="paladin-resources">
+            <h3 style="color: #ffd700; margin-bottom: 12px;">⚔️ Paladin Resources</h3>
+            <div class="resource-grid">
+                <div class="resource-item">
+                    <div class="resource-title">Divine Sense</div>
+                    <div class="resource-tracker">
+                        <div class="resource-die available" onclick="toggleResource(this)">1</div>
+                        <div class="resource-die available" onclick="toggleResource(this)">2</div>
+                        <div class="resource-die available" onclick="toggleResource(this)">3</div>
+                        <div class="resource-die available" onclick="toggleResource(this)">4</div>
+                    </div>
+                    <small style="color: #ccc;">Long Rest</small>
+                </div>
+                
+                <div class="resource-item">
+                    <div class="resource-title">Channel Divinity</div>
+                    <div class="resource-tracker">
+                        <div class="resource-die available" onclick="toggleResource(this)">CD</div>
+                    </div>
+                    <small style="color: #ccc;">Short/Long Rest</small>
+                </div>
+            </div>
+            
+            <button class="reset-slots" onclick="resetResources()">Reset All Resources</button>
+        </div>
+
+        <!-- Lay on Hands Tracker -->
+        <div class="lay-on-hands">
+            <strong style="color: #4caf50;">🙏 Lay on Hands Pool: 50 Points</strong>
+            <div class="lay-on-hands-input">
+                <label style="color: #ccc;">Use:</label>
+                <input type="number" id="layOnHandsUse" min="1" max="50" value="5">
+                <button onclick="useLayOnHands()">Use Points</button>
+                <button onclick="resetLayOnHands()">Reset to 50</button>
+            </div>
+            <div id="layOnHandsDisplay" style="font-size: 1.1em; color: #4caf50; margin-top: 8px;">
+                Current: <span id="layOnHandsCurrent">50</span> / 50
+            </div>
+            <p style="margin-top: 8px; color: #ccc; font-size: 0.85em;">5 points = cure 1 disease/poison | Recharges on Long Rest</p>
+        </div>
+
+        <!-- Concentration Tracker -->
+        <div class="concentration">
+            <strong style="color: orange;">⚡ Concentration Spell Active:</strong>
+            <input type="text" placeholder="Enter spell name..." style="margin-left: 8px; padding: 4px; background: rgba(0,0,0,0.5); border: 1px solid orange; color: #f4e4c1; border-radius: 3px;">
+            <button onclick="this.previousElementSibling.value=''" style="margin-left: 4px; padding: 4px 8px; background: #ff6b6b; border: none; color: white; border-radius: 3px; cursor: pointer;">Clear</button>
+        </div>
+
+        <!-- Divine Smite Tracker -->
+        <div class="smite-tracker">
+            <strong style="color: #ffd700;">⚡ Divine Smite Damage Reference</strong>
+            <div class="command-grid" style="margin-top: 8px;">
+                <div class="command-item">
+                    <strong>1st Slot</strong>
+                    <div class="roll20-command">+2d8 radiant</div>
+                    <small style="color: #ccc;">+1d8 vs undead/fiend</small>
+                </div>
+                <div class="command-item">
+                    <strong>2nd Slot</strong>
+                    <div class="roll20-command">+3d8 radiant</div>
+                    <small style="color: #ccc;">+1d8 vs undead/fiend</small>
+                </div>
+                <div class="command-item">
+                    <strong>3rd Slot</strong>
+                    <div class="roll20-command">+4d8 radiant</div>
+                    <small style="color: #ccc;">+1d8 vs undead/fiend</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roll20 Quick Commands -->
+        <div class="quick-commands">
+            <div class="quick-title">⚡ Quick Roll20 Commands</div>
+            <div class="command-grid">
+                <div class="command-item">
+                    <strong>Spell Attack</strong>
+                    <div class="roll20-command">/r 1d20+7</div>
+                </div>
+                <div class="command-item">
+                    <strong>Spell Save DC</strong>
+                    <div class="roll20-command">DC 15</div>
+                </div>
+                <div class="command-item">
+                    <strong>Scimitar Attack</strong>
+                    <div class="roll20-command">/r 1d20+9</div>
+                </div>
+                <div class="command-item">
+                    <strong>Scimitar Damage</strong>
+                    <div class="roll20-command">/r 1d6+5</div>
+                </div>
+                <div class="command-item">
+                    <strong>Concentration Save</strong>
+                    <div class="roll20-command">/r 1d20+5</div>
+                </div>
+                <div class="command-item">
+                    <strong>Lay on Hands</strong>
+                    <div class="roll20-command">Action: 1-50 HP</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roll20 Spellcasting Guide -->
+        <div class="roll20-section">
+            <h2 class="roll20-title">🎮 ROLL20 SPELLCASTING GUIDE</h2>
+            
+            <div class="step-guide">
+                <div class="step-title">📋 General Spellcasting Steps:</div>
+                <ol class="step-list">
+                    <li>Click your spell from the character sheet</li>
+                    <li>Choose spell slot level if upcasting</li>
+                    <li>Select targets (if required)</li>
+                    <li>Roll20 automatically rolls damage/asks for saves</li>
+                    <li>Apply effects and mark spell slot used</li>
+                </ol>
+            </div>
+
+            <!-- Spell Examples -->
+            <div class="spell-guide">
+                <div class="spell-card">
+                    <div class="spell-name">😰 Fear</div>
+                    <div class="spell-level">3rd Level • Concentration</div>
+                    <div style="background: rgba(255, 215, 0, 0.2); padding: 6px; border-radius: 4px; margin: 6px 0; font-size: 0.85em; border-left: 2px solid #ffd700;">
+                        <strong>Effect:</strong> 30ft cone. Creatures make Wisdom saves or become frightened. Must Dash away from you each turn. Perfect with Aura of Conquest!
+                    </div>
+                    <div class="step-guide">
+                        <div class="step-title">Roll20 Steps:</div>
+                        <ol style="margin-left: 12px; font-size: 0.85em;">
+                            <li>Click "Fear" on sheet</li>
+                            <li>Place 30ft cone template</li>
+                            <li>Roll20 asks for Wisdom saves</li>
+                            <li>Failed saves = frightened, must Dash away</li>
+                        </ol>
+                    </div>
+                    <div class="save-tracker">
+                        <strong>Enemy Save:</strong> Wisdom vs DC 15
+                    </div>
+                </div>
+
+                <div class="spell-card">
+                    <div class="spell-name">🔒 Hold Person</div>
+                    <div class="spell-level">2nd Level • Concentration</div>
+                    <div style="background: rgba(255, 215, 0, 0.2); padding: 6px; border-radius: 4px; margin: 6px 0; font-size: 0.85em; border-left: 2px solid #ffd700;">
+                        <strong>Effect:</strong> Humanoid within 60ft makes Wisdom save or becomes paralyzed. Auto-crit on attacks against paralyzed targets!
+                    </div>
+                    <div class="step-guide">
+                        <div class="step-title">Roll20 Steps:</div>
+                        <ol style="margin-left: 12px; font-size: 0.85em;">
+                            <li>Click "Hold Person" on sheet</li>
+                            <li>Select humanoid within 60ft</li>
+                            <li>Target rolls Wisdom save</li>
+                            <li>Failed save = paralyzed (auto-crit!)</li>
+                        </ol>
+                    </div>
+                    <div class="save-tracker">
+                        <strong>Repeat Save:</strong> End of each turn
+                    </div>
+                </div>
+
+                <div class="spell-card">
+                    <div class="spell-name">⚔️ Spiritual Weapon</div>
+                    <div class="spell-level">2nd Level • Bonus Action</div>
+                    <div style="background: rgba(255, 215, 0, 0.2); padding: 6px; border-radius: 4px; margin: 6px 0; font-size: 0.85em; border-left: 2px solid #ffd700;">
+                        <strong>Effect:</strong> Create floating weapon within 60ft. Bonus action to move 20ft and attack each turn. Lasts 1 minute.
+                    </div>
+                    <div class="step-guide">
+                        <div class="step-title">Roll20 Steps:</div>
+                        <ol style="margin-left: 12px; font-size: 0.85em;">
+                            <li>Click "Spiritual Weapon" on sheet</li>
+                            <li>Place token within 60ft</li>
+                            <li>Each turn: move + attack as bonus action</li>
+                            <li>Attack: +7 to hit, 1d8+3 force damage</li>
+                        </ol>
+                    </div>
+                    <div class="roll20-command">Attack: +7 | Damage: 1d8+3</div>
+                </div>
+
+                <div class="spell-card">
+                    <div class="spell-name">💚 Cure Wounds</div>
+                    <div class="spell-level">1st Level • Action</div>
+                    <div style="background: rgba(255, 215, 0, 0.2); padding: 6px; border-radius: 4px; margin: 6px 0; font-size: 0.85em; border-left: 2px solid #ffd700;">
+                        <strong>Effect:</strong> Touch a creature to heal 1d8+3 HP. Higher levels: +1d8 per slot level above 1st. No effect on undead/constructs.
+                    </div>
+                    <div class="step-guide">
+                        <div class="step-title">Roll20 Steps:</div>
+                        <ol style="margin-left: 12px; font-size: 0.85em;">
+                            <li>Click "Cure Wounds" on sheet</li>
+                            <li>Select ally to touch</li>
+                            <li>Roll20 automatically rolls healing</li>
+                            <li>Add healing to ally's HP</li>
+                        </ol>
+                    </div>
+                    <div class="roll20-command">1d8+3 healing (1st) | 2d8+3 (2nd) | 3d8+3 (3rd)</div>
+                </div>
+
+                <div class="spell-card">
+                    <div class="spell-name">💀 Wrathful Smite</div>
+                    <div class="spell-level">1st Level • Bonus Action</div>
+                    <div style="background: rgba(255, 215, 0, 0.2); padding: 6px; border-radius: 4px; margin: 6px 0; font-size: 0.85em; border-left: 2px solid #ffd700;">
+                        <strong>Effect:</strong> Next melee hit deals +1d6 psychic damage and target makes Wisdom save or becomes frightened. Perfect with Aura of Conquest!
+                    </div>
+                    <div class="step-guide">
+                        <div class="step-title">Roll20 Steps:</div>
+                        <ol style="margin-left: 12px; font-size: 0.85em;">
+                            <li>Click "Wrathful Smite" before attacking</li>
+                            <li>Cast as bonus action</li>
+                            <li>Next hit adds 1d6 psychic damage</li>
+                            <li>Target rolls Wisdom save or frightened</li>
+                        </ol>
+                    </div>
+                    <div class="roll20-command">+1d6 psychic + frighten (Wis save)</div>
+                </div>
+
+                <div class="spell-card">
+                    <div class="spell-name">💊 Aura of Vitality</div>
+                    <div class="spell-level">3rd Level • Concentration</div>
+                    <div style="background: rgba(255, 215, 0, 0.2); padding: 6px; border-radius: 4px; margin: 6px 0; font-size: 0.85em; border-left: 2px solid #ffd700;">
+                        <strong>Effect:</strong> 30ft aura. Each turn, use bonus action to heal one creature in aura for 2d6 HP. Lasts 1 minute (10 rounds max).
+                    </div>
+                    <div class="step-guide">
+                        <div class="step-title">Roll20 Steps:</div>
+                        <ol style="margin-left: 12px; font-size: 0.85em;">
+                            <li>Click "Aura of Vitality" on sheet</li>
+                            <li>Place 30ft radius template on yourself</li>
+                            <li>Each turn: bonus action heal in aura</li>
+                            <li>Roll 2d6 healing per use</li>
+                        </ol>
+                    </div>
+                    <div class="roll20-command">2d6 healing per bonus action (10 rounds max)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Roll20 Tips -->
+        <div class="roll20-section">
+            <h3 style="color: #4ecdc4; margin-bottom: 12px;">🎯 Advanced Roll20 Tips</h3>
+            
+            <div class="step-guide">
+                <div class="step-title">💡 Paladin Pro Tips:</div>
+                <ul class="step-list">
+                    <li><strong>Divine Smite:</strong> Declare AFTER you hit - use highest slots on crits</li>
+                    <li><strong>Aura Positioning:</strong> Stay within 10ft of allies for +3 to their saves</li>
+                    <li><strong>Channel Divinity:</strong> Use Guided Strike (+10) on crucial attacks</li>
+                    <li><strong>Fear Combo:</strong> Cast Fear, then position so enemies are in your aura</li>
+                    <li><strong>Hold Person:</strong> Perfect setup for auto-crit smites</li>
+                    <li><strong>Concentration:</strong> Track with status markers, especially Fear/Hold Person</li>
+                </ul>
+            </div>
+
+            <div class="command-grid">
+                <div class="command-item">
+                    <strong>Guided Strike</strong>
+                    <div class="roll20-command">+10 to attack</div>
+                    <small style="color: #ccc;">Channel Divinity</small>
+                </div>
+                <div class="command-item">
+                    <strong>Conquering Presence</strong>
+                    <div class="roll20-command">30ft fear aura</div>
+                    <small style="color: #ccc;">Channel Divinity</small>
+                </div>
+                <div class="command-item">
+                    <strong>Initiative</strong>
+                    <div class="roll20-command">/r 1d20+5</div>
+                    <small style="color: #ccc;">Dex modifier</small>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="resetAll()" style="background: linear-gradient(45deg, #ff6b6b, #ff8e53); border: none; color: white; padding: 12px 25px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 1em;">
+                🔄 Reset All Resources
+            </button>
         </div>
     </div>
+
+    <script>
+        let layOnHandsTotal = 50;
+
+        function toggleSlot(slot) {
+            if (slot.classList.contains('available')) {
+                slot.classList.remove('available');
+                slot.classList.add('used');
+            } else {
+                slot.classList.remove('used');
+                slot.classList.add('available');
+            }
+        }
+
+        function resetLevel(button) {
+            const levelDiv = button.parentElement;
+            const slots = levelDiv.querySelectorAll('.slot');
+            slots.forEach(slot => {
+                slot.classList.remove('used');
+                slot.classList.add('available');
+            });
+        }
+
+        function toggleResource(die) {
+            if (die.classList.contains('available')) {
+                die.classList.remove('available');
+                die.classList.add('used');
+            } else {
+                die.classList.remove('used');
+                die.classList.add('available');
+            }
+        }
+
+        function resetResources() {
+            const resources = document.querySelectorAll('.resource-die');
+            resources.forEach(resource => {
+                resource.classList.remove('used');
+                resource.classList.add('available');
+            });
+        }
+
+        function useLayOnHands() {
+            const useAmount = parseInt(document.getElementById('layOnHandsUse').value) || 0;
+            if (useAmount <= layOnHandsTotal && useAmount > 0) {
+                layOnHandsTotal -= useAmount;
+                document.getElementById('layOnHandsCurrent').textContent = layOnHandsTotal;
+            }
+        }
+
+        function resetLayOnHands() {
+            layOnHandsTotal = 50;
+            document.getElementById('layOnHandsCurrent').textContent = layOnHandsTotal;
+        }
+
+        function resetAll() {
+            // Reset spell slots
+            const slots = document.querySelectorAll('.slot');
+            slots.forEach(slot => {
+                slot.classList.remove('used');
+                slot.classList.add('available');
+            });
+            
+            // Reset paladin resources
+            resetResources();
+            
+            // Reset Lay on Hands
+            resetLayOnHands();
+            
+            // Clear concentration
+            const concentrationInput = document.querySelector('.concentration input');
+            if (concentrationInput) {
+                concentrationInput.value = '';
+            }
+        }
+    </script>
 </body>
 </html>
