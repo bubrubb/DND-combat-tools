@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order of the Lycan Blood Hunter Strategy Guide</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000000;
+            color: #f4e4c1;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.8);
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #8b0000;
+        }
+        .title {
+            text-align: center;
+            color: #ff4444;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .action-section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .action-box {
+            flex: 1;
+            min-width: 300px;
+            background: linear-gradient(45deg, #1a0000, #4a0000);
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid #8b0000;
+            position: relative;
+            overflow: hidden;
+        }
+        .action-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+        .ranged-box::before {
+            background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+        }
+        .melee-box::before {
+            background: linear-gradient(90deg, #8b0000, #ff4444);
+        }
+        .blood-box::before {
+            background: linear-gradient(90deg, #8a2be2, #9370db);
+        }
+        .action-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .ranged-title { color: #ff6b6b; }
+        .melee-title { color: #ff4444; }
+        .blood-title { color: #8a2be2; }
+        
+        .step {
+            background: rgba(255,255,255,0.1);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff4444;
+        }
+        .step-number {
+            background: #ff4444;
+            color: #000;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .dice-roll {
+            background: #2d1810;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #ff6666;
+            margin: 8px 0;
+            border: 1px solid #8b0000;
+        }
+        .decision-matrix {
+            background: linear-gradient(135deg, #1a0000, #4a0000);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px solid #8b0000;
+        }
+        .matrix-title {
+            font-size: 1.8em;
+            text-align: center;
+            color: #ff4444;
+            margin-bottom: 20px;
+        }
+        .decision-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .decision-box {
+            background: rgba(0,0,0,0.6);
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+        .ranged-decision {
+            border-color: #ff6b6b;
+        }
+        .melee-decision {
+            border-color: #ff4444;
+        }
+        .blood-decision {
+            border-color: #8a2be2;
+        }
+        .decision-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .ranged-header { color: #ff6b6b; }
+        .melee-header { color: #ff4444; }
+        .blood-header { color: #8a2be2; }
+        
+        .scenario {
+            background: rgba(255,255,255,0.1);
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #ff4444;
+        }
+        .hybrid-section {
+            background: linear-gradient(45deg, #4a0000, #2a0000);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #ff4444;
+        }
+        .hybrid-title {
+            color: #ffaa44;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .highlight {
+            background: rgba(255, 68, 68, 0.2);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #ff6666;
+            font-weight: bold;
+        }
+        .resource-tracker {
+            background: rgba(138, 43, 226, 0.2);
+            border: 2px solid #8a2be2;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .resource-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .resource-item {
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #8a2be2;
+        }
+        .warning-box {
+            background: rgba(255, 0, 0, 0.15);
+            border: 2px solid #ff0000;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🩸 ORDER OF THE LYCAN STRATEGY 🐺</h1>
+        
+        <!-- Navigation Link -->
+        <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: rgba(139,0,0,0.3); border-radius: 10px; border: 2px solid #8b0000;">
+            <a href="blood-hunter-checklist.html" style="color: #ff4444; text-decoration: none; padding: 12px 25px; background: rgba(255,68,68,0.2); border-radius: 8px; border: 2px solid #ff4444; font-weight: bold; font-size: 1.2em;">✅ Blood Hunter Combat Checklist</a>
+        </div>
+        
+        <div class="action-section">
+            <div class="action-box ranged-box">
+                <h2 class="action-title ranged-title">🏹 RANGED COMBAT</h2>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Activate Crimson Rite</strong><br>
+                    Take 1d6 necrotic (average 3-4) for +1d6 fire damage
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Longbow Attacks</strong>
+                    <div class="dice-roll">+10 to hit, 1d8+5+1d6 fire damage</div>
+                    <div class="dice-roll">Extra Attack: Second shot per turn</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Archery Fighting Style</strong><br>
+                    +2 bonus already included in attack rolls
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Brand on Hit</strong><br>
+                    First hit: apply Brand of Castigation (1/short rest)
+                </div>
+            </div>
+
+            <div class="action-box melee-box">
+                <h2 class="action-title melee-title">⚔️ MELEE COMBAT</h2>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Transform to Hybrid Form</strong><br>
+                    Bonus action, 1 hour duration (1/short rest)
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Enhanced Melee Attacks</strong>
+                    <div class="dice-roll">Shortsword: +8 hit, 1d6+5+1d6 fire</div>
+                    <div class="dice-roll">Unarmed: +8 hit, 1d6+5+1d6 fire</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Bonus Action Unarmed Strike</strong><br>
+                    After Attack action, get extra unarmed strike
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Hybrid Benefits</strong><br>
+                    +1 AC, resistance to B/P/S, +1 melee damage, STR advantage
+                </div>
+            </div>
+
+            <div class="action-box blood-box">
+                <h2 class="action-title blood-title">🩸 BLOOD MAGIC</h2>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Blood Curse Priority</strong><br>
+                    2 uses per short rest, save for key moments
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Bloated Agony Curse</strong>
+                    <div class="dice-roll">Bonus Action, 30ft range, DC 13 CON</div>
+                    Disadvantage on STR/DEX + 1d8 if multiple attacks
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Amplify Decision</strong><br>
+                    Take 1d6 necrotic for enhanced effects
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Fallen Puppet (Reaction)</strong><br>
+                    Enemy at 0 HP makes final attack for you
+                </div>
+            </div>
+        </div>
+
+        <div class="decision-matrix">
+            <h2 class="matrix-title">🎯 TACTICAL DECISION MATRIX</h2>
+            <div class="decision-grid">
+                <div class="decision-box ranged-decision">
+                    <h3 class="decision-header ranged-header">🏹 USE RANGED WHEN</h3>
+                    <div class="scenario">
+                        <strong>🎯 High AC enemies</strong><br>
+                        +10 to hit gives best accuracy
+                    </div>
+                    <div class="scenario">
+                        <strong>🏃 Mobile enemies</strong><br>
+                        No opportunity attacks, maintain distance
+                    </div>
+                    <div class="scenario">
+                        <strong>🛡️ Fragile allies in melee</strong><br>
+                        Avoid friendly fire, support from range
+                    </div>
+                    <div class="scenario">
+                        <strong>⚡ Dangerous enemy abilities</strong><br>
+                        Avoid breath weapons, auras, reactions
+                    </div>
+                    <div class="scenario">
+                        <strong>🎪 Multiple weak enemies</strong><br>
+                        Pick off stragglers and ranged threats
+                    </div>
+                </div>
+
+                <div class="decision-box melee-decision">
+                    <h3 class="decision-header melee-header">⚔️ USE MELEE WHEN</h3>
+                    <div class="scenario">
+                        <strong>💪 Need maximum damage</strong><br>
+                        3 attacks per turn in hybrid form
+                    </div>
+                    <div class="scenario">
+                        <strong>🛡️ Need damage resistance</strong><br>
+                        Hybrid form resists B/P/S damage
+                    </div>
+                    <div class="scenario">
+                        <strong>🏰 Tight spaces</strong><br>
+                        Dungeons where range is limited
+                    </div>
+                    <div class="scenario">
+                        <strong>🎯 Single tough enemy</strong><br>
+                        Focus fire with full attack routine
+                    </div>
+                    <div class="scenario">
+                        <strong>⚡ Need to control positioning</strong><br>
+                        Get between enemies and allies
+                    </div>
+                </div>
+
+                <div class="decision-box blood-decision">
+                    <h3 class="decision-header blood-header">🩸 USE BLOOD MAGIC WHEN</h3>
+                    <div class="scenario">
+                        <strong>💥 Enemy makes multiple attacks</strong><br>
+                        Bloated Agony punishes extra attacks
+                    </div>
+                    <div class="scenario">
+                        <strong>🎪 High-value targets</strong><br>
+                        Save curses for bosses and elites
+                    </div>
+                    <div class="scenario">
+                        <strong>⚡ Enemies are dying</strong><br>
+                        Use Fallen Puppet for free attacks
+                    </div>
+                    <div class="scenario">
+                        <strong>🛡️ Need to debuff</strong><br>
+                        STR/DEX disadvantage disrupts enemies
+                    </div>
+                    <div class="scenario">
+                        <strong>🔥 Amplify for bloodless foes</strong><br>
+                        Undead, constructs need amplified curses
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hybrid-section">
+            <h3 class="hybrid-title">🐺 HYBRID TRANSFORMATION MASTERY</h3>
+            <div class="decision-grid">
+                <div class="decision-box">
+                    <h4 style="color: #ffaa44; text-align: center;">🔋 FERAL MIGHT</h4>
+                    <div class="scenario">
+                        <strong>Benefit:</strong> Advantage on STR checks/saves
+                    </div>
+                    <div class="scenario">
+                        <strong>Bonus:</strong> +1 to all melee damage rolls
+                    </div>
+                    <div class="scenario">
+                        <strong>Use for:</strong> Grappling, climbing, breaking things
+                    </div>
+                </div>
+                
+                <div class="decision-box">
+                    <h4 style="color: #ffaa44; text-align: center;">🛡️ RESILIENT HIDE</h4>
+                    <div class="scenario">
+                        <strong>Resistance:</strong> Bludgeoning, piercing, slashing
+                    </div>
+                    <div class="scenario">
+                        <strong>Exception:</strong> Silvered weapons deal full damage
+                    </div>
+                    <div class="scenario">
+                        <strong>AC Bonus:</strong> +1 AC while not in heavy armor
+                    </div>
+                </div>
+                
+                <div class="decision-box">
+                    <h4 style="color: #ffaa44; text-align: center;">👊 PREDATORY STRIKES</h4>
+                    <div class="scenario">
+                        <strong>Weapon:</strong> Unarmed strikes count as one weapon
+                    </div>
+                    <div class="scenario">
+                        <strong>Damage:</strong> 1d6 + DEX, can use Crimson Rite
+                    </div>
+                    <div class="scenario">
+                        <strong>Extra Attack:</strong> Bonus action unarmed after Attack
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <h3 style="color: #ff0000; margin-bottom: 15px;">⚠️ BLOODLUST WARNING ⚠️</h3>
+            <div style="font-size: 1.1em;">
+                <strong>When below half HP (24 or less):</strong> Make DC 8 Wisdom save at start of turn<br>
+                <strong>On failure:</strong> Must move toward and attack nearest creature<br>
+                <strong>Auto-fail if:</strong> Concentrating on spell or similar effect<br>
+                <strong>Wisdom Save:</strong> +3 modifier
+            </div>
+        </div>
+
+        <div class="resource-tracker">
+            <h3 style="color: #8a2be2; text-align: center; margin-bottom: 20px;">📊 RESOURCE OPTIMIZATION</h3>
+            <div class="resource-grid">
+                <div class="resource-item">
+                    <strong style="color: #ffaa44;">Crimson Rite</strong><br>
+                    Cost: 1d6 necrotic<br>
+                    Duration: Until rest<br>
+                    Uses: Once per weapon
+                </div>
+                <div class="resource-item">
+                    <strong style="color: #ffaa44;">Blood Curses</strong><br>
+                    Uses: 2/short rest<br>
+                    Save DC: 13<br>
+                    Amplify: +1d6 necrotic
+                </div>
+                <div class="resource-item">
+                    <strong style="color: #ffaa44;">Hybrid Form</strong><br>
+                    Duration: 1 hour<br>
+                    Uses: 1/short rest<br>
+                    Bonus action to activate
+                </div>
+            </div>
+        </div>
+
+        <div class="decision-matrix">
+            <h2 class="matrix-title">🏹 COMBAT ROTATION EXAMPLES</h2>
+            <div style="background: rgba(0,0,0,0.6); padding: 20px; border-radius: 8px;">
+                <div class="scenario">
+                    <strong>🎯 Opening Round (Ranged):</strong> Crimson Rite longbow → Attack + Extra Attack → Brand best target
+                </div>
+                <div class="scenario">
+                    <strong>⚔️ Opening Round (Melee):</strong> Hybrid Transform → Move in → Attack + Extra Attack + Bonus Unarmed
+                </div>
+                <div class="scenario">
+                    <strong>🩸 Control Round:</strong> Bloated Agony on multi-attacker → Regular attacks → Save other curse
+                </div>
+                <div class="scenario">
+                    <strong>💥 Burst Round:</strong> Amplified Bloated Agony → Full attack routine → Fallen Puppet on deaths
+                </div>
+                <div class="scenario">
+                    <strong>🛡️ Defensive Round:</strong> Stay in hybrid form for resistance → Focus fire priority target
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
