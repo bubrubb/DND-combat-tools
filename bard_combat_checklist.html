@@ -3,69 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plinny's Bard Combat Checklist</title>
+    <title>Blood Hunter Combat Checklist - Sasha Vale</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #2d1b69, #8b4513);
+            background: #000000;
             color: #f4e4c1;
             margin: 0;
             padding: 15px;
             min-height: 100vh;
         }
         .container {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
             background: rgba(0,0,0,0.9);
             border-radius: 10px;
             padding: 20px;
-            border: 2px solid #d4af37;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            border: 2px solid #8b0000;
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
         }
         .title {
             text-align: center;
-            color: #d4af37;
+            color: #ff4444;
             font-size: 1.8em;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px #000;
         }
         .phase {
-            background: linear-gradient(45deg, #2d1b69, #11998e);
+            background: linear-gradient(45deg, #1a0000, #4a0000);
             border-radius: 8px;
-            padding: 18px;
-            margin: 18px 0;
-            border: 2px solid #d4af37;
-            position: relative;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #8b0000;
         }
         .phase-title {
-            font-size: 1.3em;
+            font-size: 1.2em;
             font-weight: bold;
-            color: #ffd700;
+            color: #ff6666;
             margin-bottom: 15px;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
         .checklist-item {
             background: rgba(255,255,255,0.1);
             margin: 8px 0;
             padding: 12px;
             border-radius: 6px;
-            border-left: 4px solid #4ecdc4;
+            border-left: 3px solid #ff4444;
             display: flex;
             align-items: flex-start;
-            gap: 12px;
+            gap: 10px;
             transition: all 0.3s ease;
         }
         .checklist-item:hover {
             background: rgba(255,255,255,0.15);
-            transform: translateX(5px);
+            transform: translateX(3px);
         }
         .checkbox {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #4ecdc4;
-            border-radius: 4px;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #ff4444;
+            border-radius: 3px;
             margin-top: 2px;
             flex-shrink: 0;
             cursor: pointer;
@@ -75,82 +73,86 @@
             transition: all 0.3s ease;
         }
         .checkbox:hover {
-            border-color: #ffd700;
-            background: rgba(255, 215, 0, 0.1);
+            border-color: #ffaa44;
+            background: rgba(255, 170, 68, 0.1);
         }
         .checkbox.checked {
-            background: #4ecdc4;
-            border-color: #4ecdc4;
+            background: #ff4444;
+            border-color: #ff4444;
         }
         .checkbox.checked::after {
             content: '✓';
             color: #000;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
         }
         .item-content {
             flex: 1;
         }
         .item-title {
             font-weight: bold;
-            color: #ffd700;
-            margin-bottom: 5px;
+            color: #ffaa44;
+            margin-bottom: 3px;
+            font-size: 0.95em;
         }
         .item-desc {
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: #ccc;
-            line-height: 1.4;
+            line-height: 1.3;
         }
         .decision-highlight {
             background: rgba(255, 107, 107, 0.2);
             border-left-color: #ff6b6b;
         }
         .action-highlight {
-            background: rgba(76, 175, 80, 0.2);
-            border-left-color: #4caf50;
+            background: rgba(255, 170, 68, 0.2);
+            border-left-color: #ffaa44;
         }
-        .spell-highlight {
-            background: rgba(147, 112, 219, 0.2);
-            border-left-color: #9370db;
+        .curse-highlight {
+            background: rgba(138, 43, 226, 0.2);
+            border-left-color: #8a2be2;
         }
         .roll-box {
-            background: #2d3748;
-            padding: 8px 12px;
-            border-radius: 5px;
+            background: #2d1810;
+            padding: 6px 10px;
+            border-radius: 4px;
             font-family: 'Courier New', monospace;
             font-weight: bold;
-            color: #ffd700;
-            margin: 5px 0;
-            border: 1px solid #4a5568;
+            color: #ff6666;
+            margin: 3px 0;
+            border: 1px solid #8b0000;
             display: inline-block;
+            font-size: 0.9em;
         }
-        .quick-ref {
-            background: linear-gradient(45deg, #8b4513, #a0522d);
+        .resource-tracker {
+            background: linear-gradient(45deg, #4a0000, #2a0000);
             border-radius: 8px;
             padding: 15px;
             margin: 15px 0;
-            border: 2px solid #d4af37;
+            border: 2px solid #8b0000;
         }
-        .quick-ref-title {
-            color: #ffd700;
-            font-size: 1.2em;
+        .resource-title {
+            color: #ff6666;
+            font-size: 1.1em;
             font-weight: bold;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             text-align: center;
         }
-        .quick-ref-grid {
+        .resource-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 15px;
         }
-        .ref-item {
+        .resource-item {
             background: rgba(0,0,0,0.5);
-            padding: 8px;
+            padding: 10px;
             border-radius: 4px;
-            border-left: 3px solid #d4af37;
+            border-left: 3px solid #ff4444;
+            font-size: 0.9em;
+            text-align: center;
         }
         .reset-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            background: linear-gradient(45deg, #8b0000, #ff4444);
             border: none;
             color: white;
             padding: 10px 20px;
@@ -160,99 +162,79 @@
             margin: 15px auto;
             display: block;
             transition: all 0.3s ease;
+            font-size: 0.9em;
         }
         .reset-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+            box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+        }
+        .warning {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff0000;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+            color: #ff6666;
+            font-weight: bold;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="title">🎭 PLINNY'S BARD COMBAT CHECKLIST 🎵</h1>
-
-        <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: rgba(255,215,0,0.1); border-radius: 8px; border: 1px solid #d4af37;">
-    📖 <strong>Need help with tactics?</strong> 
-    <a href="bard_strategy_guide.html" style="color: #4ecdc4; text-decoration: underline;">Strategy Guide</a>
-    &nbsp;|&nbsp;
-    📊 <strong>Track resources:</strong>
-    <a href="bard_spell_tracker.html" style="color: #9370db; text-decoration: underline;" target="_blank">Spell Tracker</a>
-</div>
+        <h1 class="title">🩸 BLOOD HUNTER COMBAT CHECKLIST 🏹</h1>
+        
+        <!-- Navigation Link -->
+        <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: rgba(139,0,0,0.3); border-radius: 8px; border: 1px solid #8b0000;">
+            <a href="blood-hunter-strategy.html" style="color: #8a2be2; text-decoration: none; padding: 10px 20px; background: rgba(138,43,226,0.2); border-radius: 6px; border: 2px solid #8a2be2; font-weight: bold; font-size: 1.1em;">📖 Blood Hunter Strategy Guide</a>
+        </div>
         
         <div class="phase">
-            <h2 class="phase-title">🎯 Phase 1: Pre-Combat Assessment</h2>
+            <h2 class="phase-title">⚔️ Pre-Combat Setup</h2>
             
             <div class="checklist-item decision-highlight">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
-                    <div class="item-title">Count Enemies & Allies</div>
-                    <div class="item-desc">How many enemies? Are they clustered or spread? Where are my allies?</div>
+                    <div class="item-title">Activate Crimson Rite</div>
+                    <div class="item-desc">
+                        <strong>Choose weapon:</strong> Longbow OR Shortsword<br>
+                        <strong>Cost:</strong> 1d6 necrotic damage (cannot be reduced)<br>
+                        <strong>Effect:</strong> +1d6 fire damage until short/long rest
+                    </div>
                 </div>
             </div>
             
             <div class="checklist-item decision-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Consider Hybrid Transformation</div>
+                    <div class="item-desc">
+                        <strong>Use if:</strong> Expecting melee combat or need durability<br>
+                        <strong>Bonus action:</strong> Transform for 1 hour (1/short rest)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
                     <div class="item-title">Check Resources</div>
-                    <div class="item-desc">Bardic Inspiration uses (3 total), spell slots (4/3/2), HP status</div>
-                </div>
-            </div>
-            
-            <div class="checklist-item decision-highlight">
-                <div class="checkbox" onclick="toggleCheck(this)"></div>
-                <div class="item-content">
-                    <div class="item-title">Identify Priority Targets</div>
-                    <div class="item-desc">Spellcasters, ranged attackers, or wounded enemies to finish off?</div>
-                </div>
-            </div>
-            
-            <div class="checklist-item">
-                <div class="checkbox" onclick="toggleCheck(this)"></div>
-                <div class="item-content">
-                    <div class="item-title">Position Assessment</div>
-                    <div class="item-desc">Am I in melee range? Do I need to move? Can I stay at range safely?</div>
+                    <div class="item-desc">Blood Curses: 2/short rest | Crimson Rite: 1/short rest | Brand: 1/short rest</div>
                 </div>
             </div>
         </div>
 
         <div class="phase">
-            <h2 class="phase-title">⚡ Phase 2: Action Decision</h2>
-            
-            <div class="checklist-item decision-highlight">
-                <div class="checkbox" onclick="toggleCheck(this)"></div>
-                <div class="item-content">
-                    <div class="item-title">Choose Primary Action</div>
-                    <div class="item-desc">
-                        <strong>SPELL:</strong> AoE control/damage, single target save-or-suck<br>
-                        <strong>ATTACK:</strong> Consistent damage with Blade Flourish potential<br>
-                        <strong>SUPPORT:</strong> Bardic Inspiration for crucial ally moments
-                    </div>
-                </div>
-            </div>
-            
-            <div class="checklist-item spell-highlight">
-                <div class="checkbox" onclick="toggleCheck(this)"></div>
-                <div class="item-content">
-                    <div class="item-title">If Casting: Choose Spell Level</div>
-                    <div class="item-desc">
-                        <strong>3rd:</strong> Hypnotic Pattern (AoE control)<br>
-                        <strong>2nd:</strong> Suggestion, Blindness/Deafness<br>
-                        <strong>1st:</strong> Faerie Fire, Hideous Laughter, Healing Word
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="phase">
-            <h2 class="phase-title">🎲 Phase 3: Execute Action</h2>
+            <h2 class="phase-title">🎯 Combat Actions</h2>
             
             <div class="checklist-item action-highlight">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
-                    <div class="item-title">If Attacking: Roll & Apply Dueling</div>
+                    <div class="item-title">Choose Attack Strategy</div>
                     <div class="item-desc">
-                        <div class="roll-box">Rapier: d20 + 6 to hit, 1d8 + 5 damage</div>
-                        <div class="roll-box">Hand Crossbow: d20 + 6 to hit, 1d6 + 3 damage</div>
+                        <div class="roll-box">Longbow: d20+10, 1d8+5+1d6 fire</div>
+                        <div class="roll-box">Shortsword: d20+8, 1d6+5+1d6 fire</div>
+                        <div class="roll-box">Unarmed (Hybrid): d20+8, 1d6+5+1d6 fire</div>
                     </div>
                 </div>
             </div>
@@ -260,108 +242,140 @@
             <div class="checklist-item action-highlight">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
-                    <div class="item-title">If Hit: Consider Blade Flourish</div>
-                    <div class="item-desc">
-                        <strong>Defensive:</strong> +AC until next turn<br>
-                        <strong>Slashing:</strong> Hit another enemy within 5ft<br>
-                        <strong>Mobile:</strong> Push target + move with them
-                    </div>
+                    <div class="item-title">Extra Attack (Level 5+)</div>
+                    <div class="item-desc">Make second attack with same weapon or different one</div>
                 </div>
             </div>
             
-            <div class="checklist-item spell-highlight">
+            <div class="checklist-item action-highlight">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
-                    <div class="item-title">If Casting: Apply Spell Effects</div>
+                    <div class="item-title">🐺 Hybrid Bonus Attack (If Transformed)</div>
+                    <div class="item-desc"><strong>ONLY IN HYBRID FORM:</strong> Bonus action unarmed strike after Attack action</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item curse-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Blood Curse of Bloated Agony</div>
                     <div class="item-desc">
-                        <div class="roll-box">Spell Save DC: 14</div>
-                        <div class="roll-box">Spell Attack: d20 + 6</div>
-                        Remember concentration spells!
+                        <strong>Bonus action:</strong> Target within 30ft<br>
+                        <strong>Effect:</strong> Disadvantage on STR/DEX checks, 1d8 necrotic if multiple attacks<br>
+                        <strong>Duration:</strong> Until end of your next turn
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="phase">
-            <h2 class="phase-title">🎵 Phase 4: Bonus Actions & Support</h2>
+            <h2 class="phase-title">🩸 Blood Magic & Special Abilities</h2>
             
-            <div class="checklist-item">
+            <div class="checklist-item action-highlight">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
-                    <div class="item-title">Bardic Inspiration Available?</div>
-                    <div class="item-desc">Give to ally making important attack, save, or skill check (d6 bonus die)</div>
+                    <div class="item-title">🔥 HYBRID ACTIVE - Feral Might</div>
+                    <div class="item-desc"><strong>WHILE TRANSFORMED:</strong> Advantage on STR checks/saves + +1 melee damage</div>
                 </div>
             </div>
             
-            <div class="checklist-item spell-highlight">
+            <div class="checklist-item action-highlight">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
-                    <div class="item-title">Healing Word if Needed</div>
-                    <div class="item-desc">Bonus action to revive downed ally: 1d4+3 healing at range</div>
+                    <div class="item-title">🔥 HYBRID ACTIVE - Resilient Hide</div>
+                    <div class="item-desc"><strong>WHILE TRANSFORMED:</strong> Resistance to B/P/S from non-silvered weapons + +1 AC</div>
                 </div>
             </div>
             
-            <div class="checklist-item">
+            <div class="checklist-item action-highlight">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
-                    <div class="item-title">Movement & Positioning</div>
-                    <div class="item-desc">25ft speed - stay at optimal range, use Halfling Nimbleness to move through larger enemies</div>
+                    <div class="item-title">🔥 HYBRID ACTIVE - Predatory Strikes</div>
+                    <div class="item-desc"><strong>WHILE TRANSFORMED:</strong> Unarmed strikes use DEX, deal 1d6, can apply Crimson Rite</div>
+                </div>
+            </div>
+            
+            <div class="warning">
+                🚨 BLOODLUST CHECK: If below half HP (24 or less), make DC 8 Wisdom save or attack nearest creature! 🚨
+            </div>
+            
+            <div class="checklist-item curse-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Brand of Castigation (On Hit)</div>
+                    <div class="item-desc">
+                        <strong>When:</strong> Hit with weapon that has active Crimson Rite<br>
+                        <strong>Effect:</strong> Always know direction, enemy takes psychic damage when damaging you/allies<br>
+                        <strong>Uses:</strong> 1/short rest
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item curse-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Curse of the Fallen Puppet (Reaction)</div>
+                    <div class="item-desc">
+                        <strong>When:</strong> Enemy drops to 0 HP within 30ft<br>
+                        <strong>Effect:</strong> Enemy makes one weapon attack before dying<br>
+                        <strong>Amplify:</strong> Move half speed + Hemocraft bonus to attack
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item decision-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Amplify Blood Curse?</div>
+                    <div class="item-desc">
+                        <strong>Cost:</strong> 1d6 necrotic damage<br>
+                        <strong>Benefit:</strong> Enhanced effects + affects bloodless creatures
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="phase">
-            <h2 class="phase-title">⚔️ Phase 5: Combat Reactions</h2>
-            
-            <div class="checklist-item">
-                <div class="checkbox" onclick="toggleCheck(this)"></div>
-                <div class="item-content">
-                    <div class="item-title">Opportunity Attacks</div>
-                    <div class="item-desc">Rapier +6 for 1d8+5 damage when enemies leave my reach</div>
+        <div class="resource-tracker">
+            <div class="resource-title">📊 Resource Tracking</div>
+            <div class="resource-grid">
+                <div class="resource-item">
+                    <strong>Blood Curses</strong><br>
+                    Uses: 2/short rest<br>
+                    DC: 13 (8+3+2)
                 </div>
-            </div>
-            
-            <div class="checklist-item">
-                <div class="checkbox" onclick="toggleCheck(this)"></div>
-                <div class="item-content">
-                    <div class="item-title">Lucky Racial Feature</div>
-                    <div class="item-desc">If I roll a 1 on attack, ability check, or save - reroll and use new result</div>
+                <div class="resource-item">
+                    <strong>Crimson Rite</strong><br>
+                    Uses: 1/short rest<br>
+                    Damage: 1d6 necrotic
                 </div>
-            </div>
-            
-            <div class="checklist-item">
-                <div class="checkbox" onclick="toggleCheck(this)"></div>
-                <div class="item-content">
-                    <div class="item-title">Concentration Saves</div>
-                    <div class="item-desc">When taking damage while concentrating: Constitution save DC 10 or half damage</div>
+                <div class="resource-item">
+                    <strong>Hybrid Form</strong><br>
+                    Uses: 1/short rest<br>
+                    Duration: 1 hour
+                </div>
+                <div class="resource-item">
+                    <strong>Brand of Castigation</strong><br>
+                    Uses: 1/short rest<br>
+                    Psychic: +2 damage
                 </div>
             </div>
         </div>
 
-        <div class="quick-ref">
-            <div class="quick-ref-title">📋 Quick Reference</div>
-            <div class="quick-ref-grid">
-                <div class="ref-item">
-                    <strong>Key Stats:</strong><br>
-                    AC: 14 | HP: 38 | Speed: 25ft<br>
-                    Spell Save DC: 14
+        <div class="resource-tracker">
+            <div class="resource-title">🎯 Quick Reference</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                <div class="resource-item">
+                    <strong>Longbow</strong><br>
+                    +10 hit, 1d8+5+1d6
                 </div>
-                <div class="ref-item">
-                    <strong>Resources:</strong><br>
-                    Bardic Inspiration: 3/long rest<br>
-                    Spell Slots: 4/3/2
+                <div class="resource-item">
+                    <strong>Shortsword</strong><br>
+                    +8 hit, 1d6+5+1d6
                 </div>
-                <div class="ref-item">
-                    <strong>Top Damage Options:</strong><br>
-                    Rapier + Flourish<br>
-                    Hypnotic Pattern (AoE)<br>
-                    Vicious Mockery
-                </div>
-                <div class="ref-item">
-                    <strong>Best Support:</strong><br>
-                    Bardic Inspiration<br>
-                    Healing Word<br>
-                    Faerie Fire (advantage)
+                <div class="resource-item">
+                    <strong>AC:</strong> 17 (18 hybrid)<br>
+                    <strong>HP:</strong> 47<br>
+                    <strong>Speed:</strong> 30ft
                 </div>
             </div>
         </div>
