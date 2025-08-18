@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Hunter Combat Checklist - Sasha Vale</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000000;
+            color: #f4e4c1;
+            margin: 0;
+            padding: 15px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.9);
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid #8b0000;
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+        }
+        .title {
+            text-align: center;
+            color: #ff4444;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .phase {
+            background: linear-gradient(45deg, #1a0000, #4a0000);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #8b0000;
+        }
+        .phase-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ff6666;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .checklist-item {
+            background: rgba(255,255,255,0.1);
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #ff4444;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        .checklist-item:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateX(3px);
+        }
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #ff4444;
+            border-radius: 3px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .checkbox:hover {
+            border-color: #ffaa44;
+            background: rgba(255, 170, 68, 0.1);
+        }
+        .checkbox.checked {
+            background: #ff4444;
+            border-color: #ff4444;
+        }
+        .checkbox.checked::after {
+            content: '✓';
+            color: #000;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .item-content {
+            flex: 1;
+        }
+        .item-title {
+            font-weight: bold;
+            color: #ffaa44;
+            margin-bottom: 3px;
+            font-size: 0.95em;
+        }
+        .item-desc {
+            font-size: 0.85em;
+            color: #ccc;
+            line-height: 1.3;
+        }
+        .decision-highlight {
+            background: rgba(255, 107, 107, 0.2);
+            border-left-color: #ff6b6b;
+        }
+        .action-highlight {
+            background: rgba(255, 170, 68, 0.2);
+            border-left-color: #ffaa44;
+        }
+        .curse-highlight {
+            background: rgba(138, 43, 226, 0.2);
+            border-left-color: #8a2be2;
+        }
+        .roll-box {
+            background: #2d1810;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #ff6666;
+            margin: 3px 0;
+            border: 1px solid #8b0000;
+            display: inline-block;
+            font-size: 0.9em;
+        }
+        .resource-tracker {
+            background: linear-gradient(45deg, #4a0000, #2a0000);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #8b0000;
+        }
+        .resource-title {
+            color: #ff6666;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .resource-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .resource-item {
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #ff4444;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .reset-btn {
+            background: linear-gradient(45deg, #8b0000, #ff4444);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 15px auto;
+            display: block;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+        .reset-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+        }
+        .warning {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff0000;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+            color: #ff6666;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🩸 BLOOD HUNTER COMBAT CHECKLIST 🏹</h1>
+        
+        <div class="phase">
+            <h2 class="phase-title">⚔️ Pre-Combat Setup</h2>
+            
+            <div class="checklist-item decision-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Activate Crimson Rite</div>
+                    <div class="item-desc">
+                        <strong>Choose weapon:</strong> Longbow OR Shortsword<br>
+                        <strong>Cost:</strong> 1d6 necrotic damage (cannot be reduced)<br>
+                        <strong>Effect:</strong> +1d6 fire damage until short/long rest
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item decision-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Consider Hybrid Transformation</div>
+                    <div class="item-desc">
+                        <strong>Use if:</strong> Expecting melee combat or need durability<br>
+                        <strong>Bonus action:</strong> Transform for 1 hour (1/short rest)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Check Resources</div>
+                    <div class="item-desc">Blood Curses: 2/short rest | Crimson Rite: 1/short rest | Brand: 1/short rest</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2 class="phase-title">🎯 Combat Actions</h2>
+            
+            <div class="checklist-item action-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Choose Attack Strategy</div>
+                    <div class="item-desc">
+                        <div class="roll-box">Longbow: d20+10, 1d8+5+1d6 fire</div>
+                        <div class="roll-box">Shortsword: d20+8, 1d6+5+1d6 fire</div>
+                        <div class="roll-box">Unarmed (Hybrid): d20+8, 1d6+5+1d6 fire</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item action-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Extra Attack (Level 5+)</div>
+                    <div class="item-desc">Make second attack with same weapon or different one</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item action-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">🐺 Hybrid Bonus Attack (If Transformed)</div>
+                    <div class="item-desc"><strong>ONLY IN HYBRID FORM:</strong> Bonus action unarmed strike after Attack action</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item curse-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Blood Curse of Bloated Agony</div>
+                    <div class="item-desc">
+                        <strong>Bonus action:</strong> Target within 30ft<br>
+                        <strong>Effect:</strong> Disadvantage on STR/DEX checks, 1d8 necrotic if multiple attacks<br>
+                        <strong>Duration:</strong> Until end of your next turn
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2 class="phase-title">🩸 Blood Magic & Special Abilities</h2>
+            
+            <div class="checklist-item curse-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Brand of Castigation (On Hit)</div>
+                    <div class="item-desc">
+                        <strong>When:</strong> Hit with weapon that has active Crimson Rite<br>
+                        <strong>Effect:</strong> Always know direction, enemy takes psychic damage when damaging you/allies<br>
+                        <strong>Uses:</strong> 1/short rest
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item curse-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Curse of the Fallen Puppet (Reaction)</div>
+                    <div class="item-desc">
+                        <strong>When:</strong> Enemy drops to 0 HP within 30ft<br>
+                        <strong>Effect:</strong> Enemy makes one weapon attack before dying<br>
+                        <strong>Amplify:</strong> Move half speed + Hemocraft bonus to attack
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item decision-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Amplify Blood Curse?</div>
+                    <div class="item-desc">
+                        <strong>Cost:</strong> 1d6 necrotic damage<br>
+                        <strong>Benefit:</strong> Enhanced effects + affects bloodless creatures
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2 class="phase-title">🐺 Hybrid Form Benefits (If Active)</h2>
+            
+            <div class="checklist-item action-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">🔥 HYBRID ACTIVE - Feral Might</div>
+                    <div class="item-desc"><strong>WHILE TRANSFORMED:</strong> Advantage on STR checks/saves + +1 melee damage</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item action-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">🔥 HYBRID ACTIVE - Resilient Hide</div>
+                    <div class="item-desc"><strong>WHILE TRANSFORMED:</strong> Resistance to B/P/S from non-silvered weapons + +1 AC</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item action-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">🔥 HYBRID ACTIVE - Predatory Strikes</div>
+                    <div class="item-desc"><strong>WHILE TRANSFORMED:</strong> Unarmed strikes use DEX, deal 1d6, can apply Crimson Rite</div>
+                </div>
+            </div>
+            
+            <div class="warning">
+                🚨 BLOODLUST CHECK: If below half HP (24 or less), make DC 8 Wisdom save or attack nearest creature! 🚨
+            </div>
+        </div>
+
+        <div class="resource-tracker">
+            <div class="resource-title">📊 Resource Tracking</div>
+            <div class="resource-grid">
+                <div class="resource-item">
+                    <strong>Blood Curses</strong><br>
+                    Uses: 2/short rest<br>
+                    DC: 13 (8+3+2)
+                </div>
+                <div class="resource-item">
+                    <strong>Crimson Rite</strong><br>
+                    Uses: 1/short rest<br>
+                    Damage: 1d6 necrotic
+                </div>
+                <div class="resource-item">
+                    <strong>Hybrid Form</strong><br>
+                    Uses: 1/short rest<br>
+                    Duration: 1 hour
+                </div>
+                <div class="resource-item">
+                    <strong>Brand of Castigation</strong><br>
+                    Uses: 1/short rest<br>
+                    Psychic: +2 damage
+                </div>
+            </div>
+        </div>
+
+        <div class="resource-tracker">
+            <div class="resource-title">🎯 Quick Reference</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                <div class="resource-item">
+                    <strong>Longbow</strong><br>
+                    +10 hit, 1d8+5+1d6
+                </div>
+                <div class="resource-item">
+                    <strong>Shortsword</strong><br>
+                    +8 hit, 1d6+5+1d6
+                </div>
+                <div class="resource-item">
+                    <strong>AC:</strong> 17 (18 hybrid)<br>
+                    <strong>HP:</strong> 47<br>
+                    <strong>Speed:</strong> 30ft
+                </div>
+            </div>
+        </div>
+
+        <button class="reset-btn" onclick="resetAll()">🔄 Reset All Checkboxes</button>
+    </div>
+
+    <script>
+        function toggleCheck(checkbox) {
+            checkbox.classList.toggle('checked');
+        }
+
+        function resetAll() {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.classList.remove('checked');
+            });
+        }
+    </script>
+</body>
+</html>
