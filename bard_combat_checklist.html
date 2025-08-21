@@ -112,6 +112,10 @@
             background: rgba(147, 112, 219, 0.2);
             border-left-color: #9370db;
         }
+        .fire-highlight {
+            background: rgba(255, 69, 0, 0.2);
+            border-left-color: #ff4500;
+        }
         .roll-box {
             background: #2d3748;
             padding: 6px 10px;
@@ -187,7 +191,7 @@
         <!-- Navigation Links -->
         <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: rgba(147, 112, 219, 0.1); border-radius: 8px; border: 1px solid #9370db;">
             <a href="bard_strategy_guide.html" style="color: #4caf50; text-decoration: none; padding: 8px 15px; background: rgba(76, 175, 80, 0.2); border-radius: 4px; border: 1px solid #4caf50; font-weight: bold; margin-right: 10px;">📖 Strategy Guide</a>
-            <a href="bard_spell_tracker.html" style="color: #9370db; text-decoration: none; padding: 8px 15px; background: rgba(147, 112, 219, 0.2); border-radius: 4px; border: 1px solid #9370db; font-weight: bold;">📊 Spell Tracker</a>
+            <a href="bard_spell_tracker.html" style="color: #4ecdc4; text-decoration: none; padding: 8px 15px; background: rgba(76, 205, 196, 0.2); border-radius: 4px; border: 1px solid #4ecdc4; font-weight: bold;">📊 Spell Tracker</a>
         </div>
         
         <div class="phase">
@@ -197,7 +201,7 @@
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
                     <div class="item-title">Assess Enemy Count & Position</div>
-                    <div class="item-desc">Multiple clustered enemies (AoE spells) vs single targets (control/damage)</div>
+                    <div class="item-desc">Multiple clustered enemies (Fireball/Hypnotic Pattern) vs single targets (control/damage)</div>
                 </div>
             </div>
             
@@ -212,26 +216,43 @@
             <div class="checklist-item decision-highlight">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
-                    <div class="item-title">Consider Positioning</div>
-                    <div class="item-desc">Range for spells/crossbow vs melee for blade flourishes? Need escape routes?</div>
+                    <div class="item-title">Consider Positioning & Fire Safety</div>
+                    <div class="item-desc">Range for spells/crossbow vs melee? Are allies clear of Fireball radius?</div>
                 </div>
             </div>
         </div>
 
         <div class="phase">
-            <h2 class="phase-title">🔮 Spell Casting Priority</h2>
+            <h2 class="phase-title">🔥 Damage Spells (3rd Level)</h2>
+            
+            <div class="checklist-item fire-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Fireball (3rd Level)</div>
+                    <div class="item-desc">
+                        <strong>Use for:</strong> 3+ enemies in 20ft radius, massive damage<br>
+                        <div class="roll-box">Save: Dexterity vs DC 14</div>
+                        <div class="roll-box">Damage: 8d6 fire (half on save)</div>
+                        <strong>⚠️ Check ally positions first!</strong>
+                    </div>
+                </div>
+            </div>
             
             <div class="checklist-item spell-highlight">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
                     <div class="item-title">Hypnotic Pattern (3rd Level)</div>
                     <div class="item-desc">
-                        <strong>Use for:</strong> 3+ enemies in 30ft cube<br>
+                        <strong>Use for:</strong> 3+ enemies in 30ft cube, crowd control<br>
                         <div class="roll-box">Save: Wisdom vs DC 14</div>
                         <strong>Effect:</strong> Charmed, incapacitated, speed 0
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="phase">
+            <h2 class="phase-title">🔮 Utility & Control Spells</h2>
             
             <div class="checklist-item spell-highlight">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
@@ -240,6 +261,18 @@
                     <div class="item-desc">
                         <strong>Use when:</strong> Enemy casting dangerous spell within 60ft<br>
                         <div class="roll-box">Check: 1d20+6 vs DC 10+spell level</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item spell-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Dispel Magic (3rd Level)</div>
+                    <div class="item-desc">
+                        <strong>Use for:</strong> Remove harmful effects from allies or buffs from enemies<br>
+                        <div class="roll-box">Check: 1d20+6 vs DC 10+spell level (for 4th+ spells)</div>
+                        <strong>Range:</strong> 120ft, auto-success on 3rd level or lower
                     </div>
                 </div>
             </div>
@@ -314,18 +347,6 @@
             <div class="checklist-item action-highlight">
                 <div class="checkbox" onclick="toggleCheck(this)"></div>
                 <div class="item-content">
-                    <div class="item-title">Revivify (1 Minute Cast)</div>
-                    <div class="item-desc">
-                        <strong>Use for:</strong> Ally died within 1 minute<br>
-                        <strong>Cost:</strong> 300gp diamond (consumed)<br>
-                        <strong>Result:</strong> Returns with 1 HP
-                    </div>
-                </div>
-            </div>
-            
-            <div class="checklist-item action-highlight">
-                <div class="checkbox" onclick="toggleCheck(this)"></div>
-                <div class="item-content">
                     <div class="item-title">Bardic Inspiration (Bonus Action)</div>
                     <div class="item-desc">
                         <strong>Use for:</strong> Ally making crucial attack/save<br>
@@ -350,6 +371,10 @@
 
         <div class="warning">
             ⚠️ CONCENTRATION CHECK: If taking damage while concentrating, make DC 10 or half damage Constitution save! (+2 modifier)
+        </div>
+
+        <div class="warning" style="background: rgba(255, 69, 0, 0.2); border-color: #ff4500; color: #ff4500;">
+            🔥 FIREBALL WARNING: 20ft radius explosion - ensure allies are clear before casting!
         </div>
 
         <div class="resource-tracker">
@@ -406,6 +431,26 @@
                 <div class="item-content">
                     <div class="item-title">Mage Hand (Cantrip)</div>
                     <div class="item-desc">Utility at range, trigger traps, manipulate objects</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase" style="background: linear-gradient(45deg, #8b4513, #a0522d);">
+            <h2 class="phase-title">🔥 Fireball vs Hypnotic Pattern Decision</h2>
+            
+            <div class="checklist-item fire-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Use Fireball When</div>
+                    <div class="item-desc">Enemies are weak-medium HP, need immediate damage, allies are safe</div>
+                </div>
+            </div>
+            
+            <div class="checklist-item spell-highlight">
+                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                <div class="item-content">
+                    <div class="item-title">Use Hypnotic Pattern When</div>
+                    <div class="item-desc">Enemies are high HP, need crowd control, want to isolate targets</div>
                 </div>
             </div>
         </div>
