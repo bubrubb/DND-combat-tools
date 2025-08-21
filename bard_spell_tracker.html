@@ -239,14 +239,6 @@
 <body>
     <div class="container">
         <h1 class="title">🎭 PLINNY'S SPELL TRACKER 🎵</h1>
-
-        <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: rgba(147, 112, 219, 0.1); border-radius: 8px; border: 1px solid #9370db;">
-    ⚔️ <strong>Need combat help?</strong> 
-    <a href="bard_combat_checklist.html" style="color: #4ecdc4; text-decoration: underline;">Combat Checklist</a>
-    &nbsp;|&nbsp;
-    📖 <strong>Learn tactics:</strong>
-    <a href="bard_strategy_guide.html" style="color: #4caf50; text-decoration: underline;">Strategy Guide</a>
-</div>
         
         <!-- Spell Slots Tracker -->
         <div class="spell-slots">
@@ -449,6 +441,44 @@
                     </div>
                     <div style="background: rgba(255,255,255,0.1); padding: 8px; border-radius: 4px; margin-top: 8px; font-size: 0.85em;">
                         <strong>Example:</strong> "Drop your weapon and flee"
+                    </div>
+                </div>
+
+                <div class="spell-card">
+                    <div class="spell-name">🛡️ Counterspell</div>
+                    <div class="spell-level">3rd Level • Reaction</div>
+                    <div style="background: rgba(147, 112, 219, 0.2); padding: 8px; border-radius: 4px; margin: 8px 0; font-size: 0.9em; border-left: 3px solid #9370db;">
+                        <strong>Effect:</strong> Reaction when you see a creature within 60ft casting a spell. If 3rd level or lower, spell fails. If 4th+ level, make ability check (DC 10 + spell's level) or spell fails.
+                    </div>
+                    <div class="step-guide">
+                        <div class="step-title">Roll20 Steps:</div>
+                        <ol style="margin-left: 15px; font-size: 0.9em;">
+                            <li>Click "Counterspell" when enemy casts</li>
+                            <li>Select caster within 60ft</li>
+                            <li>Roll20 prompts for spell level check</li>
+                            <li>If successful, enemy's spell fails</li>
+                        </ol>
+                    </div>
+                    <div class="roll20-command">Ability Check: 1d20+6 vs DC 10+spell level</div>
+                </div>
+
+                <div class="spell-card">
+                    <div class="spell-name">💫 Revivify</div>
+                    <div class="spell-level">3rd Level • 1 Minute Cast</div>
+                    <div style="background: rgba(147, 112, 219, 0.2); padding: 8px; border-radius: 4px; margin: 8px 0; font-size: 0.9em; border-left: 3px solid #9370db;">
+                        <strong>Effect:</strong> Touch a creature that died within the last minute. It returns to life with 1 HP. Can't restore missing body parts. Requires diamonds worth 300gp (consumed).
+                    </div>
+                    <div class="step-guide">
+                        <div class="step-title">Roll20 Steps:</div>
+                        <ol style="margin-left: 15px; font-size: 0.9em;">
+                            <li>Click "Revivify" on sheet</li>
+                            <li>Touch dead creature (within 1 minute)</li>
+                            <li>Consume 300gp diamond component</li>
+                            <li>Target returns with 1 HP</li>
+                        </ol>
+                    </div>
+                    <div style="background: rgba(255, 215, 0, 0.1); padding: 8px; border-radius: 4px; margin-top: 8px; font-size: 0.85em; border: 1px solid #ffd700;">
+                        <strong>⚠️ Requires:</strong> Diamond worth 300gp (consumed)
                     </div>
                 </div>
             </div>
